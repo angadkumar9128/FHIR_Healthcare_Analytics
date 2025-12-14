@@ -1,0 +1,6 @@
+SELECT
+  procedure_name,
+  procedure_count
+FROM angad_kumar91.fhir_healthcare_analytics_gold.procedure_trends
+ORDER BY procedure_count DESC
+LIMIT 15;
