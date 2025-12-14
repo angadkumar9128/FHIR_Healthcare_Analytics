@@ -1,0 +1,23 @@
+[
+  {
+    "table_catalog":"angad_kumar91",
+    "table_schema":"metadata_export",
+    "table_name":"columns",
+    "table_type":"MANAGED",
+    "created":1765704361642
+  },
+  {
+    "table_catalog":"angad_kumar91",
+    "table_schema":"metadata_export",
+    "table_name":"schemas",
+    "table_type":"MANAGED",
+    "created":1765704353632
+  },
+  {
+    "table_catalog":"angad_kumar91",
+    "table_schema":"metadata_export",
+    "table_name":"tables",
+    "table_type":"MANAGED",
+    "created":1765704356664
+  }
+]

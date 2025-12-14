@@ -1,0 +1,16 @@
+[
+  {
+    "table_catalog":"angad_kumar91",
+    "table_schema":"fhir_healthcare_analytics_bronze",
+    "table_name":"fhir_bundle",
+    "table_type":"MANAGED",
+    "created":1765659938423
+  },
+  {
+    "table_catalog":"angad_kumar91",
+    "table_schema":"fhir_healthcare_analytics_bronze",
+    "table_name":"fhir_entry_view",
+    "table_type":"VIEW",
+    "created":1765662926292
+  }
+]

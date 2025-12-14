@@ -1,0 +1,44 @@
+[
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"fhir_healthcare_analytics_rawdataset",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765657991082
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"fhir_healthcare_analytics_bronze",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765659568158
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"information_schema",
+    "schema_owner":"System user",
+    "created":1765009795607
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"metadata_export",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765704295601
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"fhir_healthcare_analytics_silver",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765664278321
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"fhir_healthcare_analytics_gold",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765668580069
+  },
+  {
+    "catalog_name":"angad_kumar91",
+    "schema_name":"default",
+    "schema_owner":"kumarangad91289@gmail.com",
+    "created":1765009795596
+  }
+]
