@@ -1,0 +1,431 @@
+{
+  "datasets": [
+    {
+      "name": "89eab4eb",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  admission_date,\n",
+        "  total_admissions\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_admissions\n",
+        "ORDER BY admission_date;\n"
+      ]
+    },
+    {
+      "name": "4b0151c8",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  diagnosis,\n",
+        "  patient_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.disease_patterns\n",
+        "ORDER BY patient_count DESC\n",
+        "LIMIT 15;\n"
+      ]
+    },
+    {
+      "name": "cd27fe77",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  diagnosis,\n",
+        "  patient_count,\n",
+        "  encounter_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.disease_patterns\n",
+        "ORDER BY encounter_count DESC;\n"
+      ]
+    },
+    {
+      "name": "72f4caa8",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  medication_name,\n",
+        "  prescription_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.medication_trends\n",
+        "ORDER BY prescription_count DESC\n",
+        "LIMIT 15;\n"
+      ]
+    },
+    {
+      "name": "2c70da9b",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  observation_name,\n",
+        "  DATE(admit_time) AS observation_date,\n",
+        "  AVG(observation_value) AS avg_value\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary\n",
+        "WHERE observation_value IS NOT NULL\n",
+        "GROUP BY observation_name, DATE(admit_time)\n",
+        "ORDER BY observation_date;\n"
+      ]
+    },
+    {
+      "name": "cc4ae92f",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `angad_kumar91`;\n",
+        "USE SCHEMA `fhir_healthcare_analytics_gold`;\n",
+        "\n",
+        "SELECT\n",
+        "  procedure_name,\n",
+        "  procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.procedure_trends\n",
+        "ORDER BY procedure_count DESC\n",
+        "LIMIT 15;\n"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "d86d31de",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "ef84d8c2",
+            "queries": [
+              {
+                "name": "e8fa7e47080b47ceba1f24aaf1e3ae5d",
+                "query": {
+                  "datasetName": "89eab4eb",
+                  "fields": [
+                    {
+                      "name": "column_b1f2ca04155",
+                      "expression": "DATE_TRUNC(\"DAY\", `admission_date`)"
+                    },
+                    {
+                      "name": "column_b1f2ca04142",
+                      "expression": "AVG(`total_admissions`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Visualization 1",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"hideXAxis\":true,\"hideYAxes\":false,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"admission_date\",\"id\":\"column_b1f2ca04155\",\"transform\":\"DAY_LEVEL\"},\"y\":[{\"column\":\"total_admissions\",\"id\":\"column_b1f2ca04142\",\"transform\":\"AVG\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"line\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_b1f2ca04127\":{\"name\":\"total_admissions\",\"type\":\"line\",\"yAxis\":0},\"column_b1f2ca04139\":{\"type\":\"line\",\"yAxis\":0},\"column_b1f2ca04142\":{\"type\":\"line\",\"yAxis\":0,\"zIndex\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "e8fa7e47080b47ceba1f24aaf1e3ae5d"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "3fa1724b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4b0151c8",
+                  "fields": [
+                    {
+                      "name": "sum(patient_count)",
+                      "expression": "SUM(`patient_count`)"
+                    },
+                    {
+                      "name": "diagnosis",
+                      "expression": "`diagnosis`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(patient_count)",
+                  "axis": {
+                    "hideTitle": false,
+                    "hideLabels": false,
+                    "hideGrid": false
+                  },
+                  "displayName": "patient_count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "diagnosis",
+                  "axis": {
+                    "hideTitle": false,
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "categorySize": {
+                      "type": "number-of-categories",
+                      "number": 20
+                    }
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "sum(patient_count)",
+                    "displayName": "patient_count"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "mark": {
+                "colors": [
+                  "#077A9D"
+                ],
+                "layout": "group"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "13932e21",
+            "queries": [
+              {
+                "name": "3577bfc9b6ac46a5a3c60fbaf8d4453e",
+                "query": {
+                  "datasetName": "cd27fe77",
+                  "fields": [
+                    {
+                      "name": "patient_count",
+                      "expression": "`patient_count`"
+                    },
+                    {
+                      "name": "column_7a8f1b4c178",
+                      "expression": "COUNT(`diagnosis`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Visualization 1",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"hideXAxis\":false,\"hideYAxes\":false,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"patient_count\",\"id\":\"column_7a8f1b4c194\"},\"y\":[{\"column\":\"diagnosis\",\"id\":\"column_7a8f1b4c178\",\"transform\":\"COUNT\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"area\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_7a8f1b4c178\":{\"type\":\"area\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "3577bfc9b6ac46a5a3c60fbaf8d4453e"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "a0a2d6d2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "72f4caa8",
+                  "fields": [
+                    {
+                      "name": "medication_name",
+                      "expression": "`medication_name`"
+                    },
+                    {
+                      "name": "sum(prescription_count)",
+                      "expression": "SUM(`prescription_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "medication_name",
+                  "axis": {
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "natural-order-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(prescription_count)",
+                  "displayName": "prescription_count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "group"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bbc59fff",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2c70da9b",
+                  "fields": [
+                    {
+                      "name": "observation_name",
+                      "expression": "`observation_name`"
+                    },
+                    {
+                      "name": "sum(avg_value)",
+                      "expression": "SUM(`avg_value`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "observation_name",
+                  "axis": {
+                    "hideTitle": false,
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "natural-order-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(avg_value)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Visualization 1",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "8324361d",
+            "queries": [
+              {
+                "name": "2c97d4b075b848e9a12175b8e9e6f172",
+                "query": {
+                  "datasetName": "cc4ae92f",
+                  "fields": [
+                    {
+                      "name": "procedure_name",
+                      "expression": "`procedure_name`"
+                    },
+                    {
+                      "name": "column_7a8f1b4c42",
+                      "expression": "SUM(`procedure_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Visualization 1",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"hideXAxis\":false,\"hideYAxes\":false,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"procedure_name\",\"id\":\"column_7a8f1b4c41\"},\"y\":[{\"column\":\"procedure_count\",\"id\":\"column_7a8f1b4c42\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"reverseX\":true,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_7a8f1b4c42\":{\"color\":\"#981717\",\"name\":\"procedure_count\",\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":false,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":false},\"type\":\"-\"}}",
+                "query_name": "2c97d4b075b848e9a12175b8e9e6f172"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
