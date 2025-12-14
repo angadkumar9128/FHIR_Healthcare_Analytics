@@ -1,0 +1,8 @@
+SELECT
+  observation_name,
+  DATE(admit_time) AS observation_date,
+  AVG(observation_value) AS avg_value
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary
+WHERE observation_value IS NOT NULL
+GROUP BY observation_name, DATE(admit_time)
+ORDER BY observation_date;
