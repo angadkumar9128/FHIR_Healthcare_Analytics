@@ -1,0 +1,6 @@
+SELECT
+  medication_name,
+  prescription_count
+FROM angad_kumar91.fhir_healthcare_analytics_gold.medication_trends
+ORDER BY prescription_count DESC
+LIMIT 15;
