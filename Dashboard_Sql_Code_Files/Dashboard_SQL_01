@@ -1,0 +1,5 @@
+SELECT
+  admission_date,
+  total_admissions
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_admissions
+ORDER BY admission_date;
