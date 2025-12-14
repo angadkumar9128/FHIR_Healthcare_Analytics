@@ -1,0 +1,69 @@
+
+CREATE OR REPLACE VIEW angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary AS
+SELECT
+  -- Core
+  p.patient_id,
+  e.encounter_id,
+
+  -- Encounter timeline
+  e.admit_time,
+  e.discharge_time,
+  e.status AS encounter_status,
+  e.encounter_type,
+
+  -- Clinical
+  c.diagnosis,
+  o.observation_code_raw     AS observation_name,
+  o.value                    AS observation_value,
+  o.unit                     AS observation_unit,
+
+  -- Procedures
+  pr.procedure_name,
+  pr.procedure_status,
+  pr.performed_time,
+
+  -- Medications
+  mr.medication_name,
+  mr.status                  AS medication_status,
+  mr.prescribed_date,
+
+  -- Immunization
+  im.vaccine_name,
+  im.status                  AS immunization_status,
+  im.vaccination_date,
+
+  -- Diagnostic reports
+  dr.report_name,
+  dr.status                  AS report_status,
+  dr.report_time,
+
+  -- Financial
+  eob.claim_type,
+  eob.total_amount,
+  eob.claim_status
+
+FROM angad_kumar91.fhir_healthcare_analytics_silver.patient p
+
+JOIN angad_kumar91.fhir_healthcare_analytics_silver.encounter e
+  ON p.patient_id = e.patient_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.condition c
+  ON e.encounter_id = c.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.observation o
+  ON e.encounter_id = o.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.procedure pr
+  ON e.encounter_id = pr.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.medication_request mr
+  ON e.encounter_id = mr.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.immunization im
+  ON e.encounter_id = im.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.diagnostic_report dr
+  ON e.encounter_id = dr.encounter_id
+
+LEFT JOIN angad_kumar91.fhir_healthcare_analytics_silver.explanation_of_benefit eob
+  ON e.encounter_id = eob.encounter_id;
