@@ -1,0 +1,6 @@
+SELECT
+  diagnosis,
+  patient_count,
+  encounter_count
+FROM angad_kumar91.fhir_healthcare_analytics_gold.disease_patterns
+ORDER BY encounter_count DESC;
