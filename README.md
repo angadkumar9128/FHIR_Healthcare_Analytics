@@ -61,41 +61,77 @@ The solution is built on the **Databricks Lakehouse Platform** using the **Medal
 
 .
 ├── data/
-│ └── raw_fhir/ # Raw FHIR JSON files (sample / reference)
+
+│   └── raw_fhir/                             # Raw FHIR JSON files (sample / reference)
+
 │
+
 ├── bronze/
-│ └── bronze_ingestion.py # Raw FHIR ingestion logic
+
+│   └── bronze_ingestion.py                     # Raw FHIR ingestion logic
+
 │
+
 ├── silver/
-│ ├── patient.py
-│ ├── encounter.py
-│ ├── condition.py
-│ ├── observation.py
-│ ├── procedure.py
-│ ├── medication_request.py
-│ ├── immunization.py
-│ ├── diagnostic_report.py
-│ └── explanation_of_benefit.py
+
+│   ├── patient.py                            # Patient resource transformation
+
+│   ├── encounter.py                          # Encounter normalization
+
+│   ├── condition.py                           # Diagnosis (Condition) processing
+
+│   ├── observation.py                         # Clinical observations & labs
+
+│   ├── procedure.py                         # Medical procedures
+
+│   ├── medication_request.py                    # Prescribed medications
+
+│   ├── immunization.py                    # Immunization records
+
+│   ├── diagnostic_report.py                 # Diagnostic reports
+
+│   └── explanation_of_benefit.py            # Insurance & billing data
+
 │
+
 ├── gold/
-│ ├── patient_encounter_summary.sql
-│ ├── admissions_dashboard.sql
-│ ├── disease_patterns.sql
-│ ├── treatment_trends.sql
-│ ├── cost_analysis.sql
-│ └── preventive_care.sql
+
+│   ├── patient_encounter_summary.sql  # Core analytics dataset
+
+│   ├── admissions_dashboard.sql       # Patient admissions analytics
+
+│   ├── disease_patterns.sql           # Diagnosis & disease trends
+
+│   ├── treatment_trends.sql           # Treatment & medication trends
+
+│   ├── cost_analysis.sql              # Financial & claim analysis
+
+│   └── preventive_care.sql            # Immunization & preventive care
+
 │
+
 ├── dashboards/
-│ ├── databricks_sql/
-│ └── power_bi/
+
+│   ├── databricks_sql/              # Databricks SQL dashboard definitions
+
+│   └── power_bi/                    # Power BI reports & visuals
+
 │
+
 ├── docs/
-│ ├── architecture_diagram.png
-│ └── project_documentation.pdf
+
+│   ├── architecture_diagram.png     # System architecture diagram
+
+│   └── project_documentation.pdf    # Complete project documentation
+
 │
+
 ├── .gitignore
+
 ├── README.md
+
 └── LICENSE
+
 
 
 ---
