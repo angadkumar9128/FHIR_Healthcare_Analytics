@@ -1,46 +1,32 @@
-# Risk Input Preparation – Gold Layer
+# Governance Demo Preparation – FHIR Healthcare Analytics
 
 ## Objective
-This step prepares basic healthcare risk indicators using existing
-Silver and Gold datasets.
+This step demonstrates data governance capabilities applied to the
+FHIR Healthcare Analytics project using Databricks Lakehouse principles.
 
-The goal is not to build a full clinical risk model, but to generate
-risk-ready inputs that can be consumed by analytics, dashboards,
-or downstream ML models.
-
----
-
-## Risk Inputs Prepared
-- Patient age
-- Number of hospital encounters
-- Chronic condition presence
-- High observation frequency
+The focus is on catalog organization, schema management, data integrity,
+and auditability.
 
 ---
 
-## Design Approach
-- Rule-based logic
-- Explainable calculations
-- Uses analytics-ready Gold/Silver tables
+## Governance Scope
+- Catalog and schema organization
+- Data isolation across layers
+- ACID compliance using Delta Lake
+- Schema evolution support
+- Read-only analytics access
 
 ---
 
-## Folder Structure to ADD
+## Outcome
+- Clear governance structure across Bronze, Silver, and Gold
+- Review-ready screenshots and explanations
+- Enterprise-aligned governance narrative
 
-Ingestion_Team/
-
-└── Risk input prep/
-
-    ├── README.md
-    
-    ├── risk_logic_explanation.md
-    
-    └── risk_input_gold.sql
-    
 ---
 
 ## Status
 **Completed**
 
 Review Note:
-> Basic, explainable healthcare risk inputs prepared using Gold and Silver data.
+> Governance structure clearly demonstrated using catalog and schema separation.
