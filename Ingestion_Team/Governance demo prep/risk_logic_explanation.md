@@ -1,4 +1,4 @@
-# Risk Logic Explanation
+# Risk Logic Explanation  
 
 Healthcare risk indicators are derived using simple, explainable rules.
 
