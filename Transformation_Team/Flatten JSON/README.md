@@ -25,6 +25,26 @@ ready for Silver cleaning and normalization.
 
 ---
 
+📁 Folder to ADD
+Transformation_Team/
+
+└── Flatten JSON/
+
+    ├── README.md
+   
+    ├── fhir_flattening_strategy.md
+    
+    ├── fhir_explode_patterns.md
+    
+    ├── flattening_design_decisions.md
+    
+    ├── flattening_examples_pyspark.py
+    
+    ├── flattening_examples_sql.sql
+    
+    └── flattening_validation_notes.md
+
+---
 ## Status
 **Completed**
 
