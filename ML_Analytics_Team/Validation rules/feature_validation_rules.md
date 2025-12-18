@@ -1,17 +1,22 @@
-# Feature-Level Validation Rules
+# Validation Categories
 
-| Feature Name | Rule |
-|-------------|------|
-| encounter_count_30d | Must be >= 0 |
-| avg_los | Must be between 0 and 365 |
-| chronic_condition_count | Cannot be negative |
-| total_claim_cost | Must be >= 0 |
-| utilization_score | Must be between 0 and 100 |
+## 1. Data Quality Validation
+- Null checks
+- Range checks
+- Data type validation
+- Duplicate detection
 
----
+## 2. Metric Validation
+- Time-window consistency
+- Aggregation correctness
+- Metric completeness
 
-## Handling Invalid Records
+## 3. Clinical Sanity Validation
+- Realistic encounter counts
+- Logical diagnosis combinations
+- Reasonable cost ranges
 
-- Null values → default safe values
-- Outliers → capped at max threshold
-- Invalid records → flagged, not dropped
+## 4. Scoring Validation
+- Score bounds (0–100)
+- Weight sum consistency
+- Risk bucket accuracy
