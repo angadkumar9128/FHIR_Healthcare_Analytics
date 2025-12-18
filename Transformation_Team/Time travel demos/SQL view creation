@@ -1,0 +1,39 @@
+# SQL View Creation – Transformation Team
+
+## Objective
+Create SQL views on top of Gold tables to provide
+business-friendly, analytics-ready access for
+dashboards, reporting, and ad-hoc analysis.
+
+---
+
+## Scope
+- Gold-to-view abstraction
+- Business-aligned naming
+- Read-only analytics access
+- Validation and consistency checks
+
+---
+
+## Outcome
+SQL views created with clear business meaning,
+stable schemas, and BI-ready structure.
+
+---
+📁 Folder to ADD
+Transformation_Team/
+└── SQL view creation/
+    ├── README.md
+    ├── sql_view_objective.md
+    ├── gold_view_catalog.md
+    ├── sql_view_definitions.sql
+    ├── sql_view_naming_standards.md
+    └── sql_view_validation_checks.sql
+---
+
+## Status
+**Completed**
+
+Review Note:
+> SQL views created on Gold tables with clear naming,
+> business-friendly columns, and validated analytics readiness.
