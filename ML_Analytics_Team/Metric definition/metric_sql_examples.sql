@@ -7,6 +7,7 @@ WHERE admit_time >= current_date() - INTERVAL 30 DAYS
 GROUP BY patient_id;
 
 
+
 -- Readmission flag (within 30 days)
 SELECT
   patient_id,
@@ -19,9 +20,12 @@ WHERE admit_time >= current_date() - INTERVAL 30 DAYS
 GROUP BY patient_id;
 
 
+
+
 -- Total claim cost per patient
 SELECT
   patient_id,
   SUM(total_amount) AS total_claim_cost
 FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary
 GROUP BY patient_id;
+
