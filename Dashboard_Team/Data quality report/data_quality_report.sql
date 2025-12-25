@@ -1,95 +1,103 @@
--- =====================================================
--- Dashboard Team: Data Quality Report
--- Layers: Silver & Gold
--- Rule: Queries return rows ONLY if issues exist
--- =====================================================
+-- =========================================================
+-- DASHBOARD TEAM : DATA QUALITY REPORT
+-- Catalog : angad_kumar91
+-- Schemas: fhir_healthcare_analytics_gold
+--          fhir_healthcare_analytics_silver
+-- Rule   : Queries return rows ONLY if data issues exist
+-- =========================================================
 
--- ===============================
--- 1. NULL CHECKS (Gold Layer)
--- ===============================
 
--- Missing patient_id in patient summary
+-- =========================================================
+-- GOLD LAYER DATA QUALITY CHECKS
+-- =========================================================
+
+
+-- 1️⃣ patient_admissions – NULL & RANGE CHECKS
 SELECT *
-FROM fhir_healthcare_analytics_gold.patient_encounter_summary
-WHERE patient_id IS NULL;
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_admissions
+WHERE admission_date IS NULL
+   OR total_admissions IS NULL
+   OR total_admissions < 0
+   OR avg_length_of_stay < 0;
 
--- Missing admission dates
+
+-- 2️⃣ cost_analysis – COST VALIDATION
 SELECT *
-FROM fhir_healthcare_analytics_gold.admissions_analytics
-WHERE admission_date IS NULL;
+FROM angad_kumar91.fhir_healthcare_analytics_gold.cost_analysis
+WHERE patient_id IS NULL
+   OR encounter_id IS NULL
+   OR total_cost IS NULL
+   OR total_cost < 0;
 
--- Missing diagnosis codes
+
+-- 3️⃣ disease_patterns – PATIENT COUNT VALIDATION
 SELECT *
-FROM fhir_healthcare_analytics_gold.disease_breakdown
-WHERE diagnosis_code IS NULL;
+FROM angad_kumar91.fhir_healthcare_analytics_gold.disease_patterns
+WHERE diagnosis IS NULL
+   OR patient_count IS NULL
+   OR patient_count < 0;
 
--- ===============================
--- 2. NEGATIVE / INVALID VALUES
--- ===============================
 
--- Negative claim cost
+-- 4️⃣ patient_encounter_summary – IDENTIFIER CONSISTENCY
 SELECT *
-FROM fhir_healthcare_analytics_gold.patient_encounter_summary
-WHERE total_claim_cost < 0;
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary
+WHERE patient_id IS NULL
+   OR encounter_id IS NULL;
 
--- Negative length of stay
+
+-- 5️⃣ DUPLICATE PATIENT–ENCOUNTER RECORDS
+SELECT
+  patient_id,
+  encounter_id,
+  COUNT(*) AS record_count
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_encounter_summary
+GROUP BY patient_id, encounter_id
+HAVING COUNT(*) > 1;
+
+
+-- 6️⃣ FUTURE-DATED ADMISSIONS (LOGICAL CHECK)
 SELECT *
-FROM fhir_healthcare_analytics_gold.admissions_analytics
-WHERE length_of_stay < 0;
-
--- ===============================
--- 3. RISK SCORE BOUNDARY CHECKS
--- ===============================
-
-SELECT *
-FROM fhir_healthcare_analytics_gold.risk_scores
-WHERE risk_score < 0
-   OR risk_score > 100;
-
--- ===============================
--- 4. DATE CONSISTENCY CHECKS
--- ===============================
-
--- Discharge before admission
-SELECT *
-FROM fhir_healthcare_analytics_gold.admissions_analytics
-WHERE discharge_date < admission_date;
-
--- Future-dated admissions
-SELECT *
-FROM fhir_healthcare_analytics_gold.admissions_analytics
+FROM angad_kumar91.fhir_healthcare_analytics_gold.patient_admissions
 WHERE admission_date > CURRENT_DATE();
 
--- ===============================
--- 5. DUPLICATE RECORD CHECKS
--- ===============================
 
--- Duplicate patient records
-SELECT patient_id, COUNT(*) AS record_count
-FROM fhir_healthcare_analytics_gold.patient_encounter_summary
-GROUP BY patient_id
-HAVING COUNT(*) > 1;
+-- =========================================================
+-- SILVER LAYER DATA QUALITY CHECKS
+-- =========================================================
 
--- Duplicate encounter records
-SELECT encounter_id, COUNT(*) AS record_count
-FROM fhir_healthcare_analytics_gold.admissions_analytics
-GROUP BY encounter_id
-HAVING COUNT(*) > 1;
 
--- ===============================
--- 6. REFERENTIAL INTEGRITY
--- ===============================
+-- 7️⃣ patient – CORE DEMOGRAPHICS VALIDATION
+SELECT *
+FROM angad_kumar91.fhir_healthcare_analytics_silver.patient
+WHERE patient_id IS NULL
+   OR gender IS NULL
+   OR birth_date IS NULL;
 
--- Encounters without matching patients
-SELECT a.encounter_id, a.patient_id
-FROM fhir_healthcare_analytics_gold.admissions_analytics a
-LEFT JOIN fhir_healthcare_analytics_gold.patient_encounter_summary p
-  ON a.patient_id = p.patient_id
-WHERE p.patient_id IS NULL;
 
--- Diseases without valid patients
-SELECT d.patient_id
-FROM fhir_healthcare_analytics_gold.disease_breakdown d
-LEFT JOIN fhir_healthcare_analytics_gold.patient_encounter_summary p
-  ON d.patient_id = p.patient_id
-WHERE p.patient_id IS NULL;
+-- 8️⃣ encounter – ADMISSION CONSISTENCY
+SELECT *
+FROM angad_kumar91.fhir_healthcare_analytics_silver.encounter
+WHERE encounter_id IS NULL
+   OR patient_id IS NULL
+   OR admit_time IS NULL;
+
+
+-- 9️⃣ condition – DIAGNOSIS INTEGRITY
+SELECT *
+FROM angad_kumar91.fhir_healthcare_analytics_silver.condition
+WHERE condition_id IS NULL
+   OR patient_id IS NULL
+   OR diagnosis IS NULL;
+
+
+-- 🔟 explanation_of_benefit – CLAIM & COST VALIDATION
+SELECT *
+FROM angad_kumar91.fhir_healthcare_analytics_silver.explanation_of_benefit
+WHERE claim_id IS NULL
+   OR patient_id IS NULL
+   OR total_amount < 0;
+
+
+-- =========================================================
+-- END OF DATA QUALITY REPORT
+-- =========================================================
