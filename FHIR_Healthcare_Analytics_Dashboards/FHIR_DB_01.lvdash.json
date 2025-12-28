@@ -185,6 +185,9 @@
                     "categorySize": {
                       "type": "number-of-categories",
                       "number": 20
+                    },
+                    "sort": {
+                      "by": "x-reversed"
                     }
                   }
                 },
@@ -294,10 +297,22 @@
                   }
                 },
                 "y": {
-                  "fieldName": "sum(prescription_count)",
-                  "displayName": "prescription_count",
-                  "scale": {
-                    "type": "quantitative"
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(prescription_count)",
+                        "displayName": "prescription_count"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  },
+                  "secondary": {
+                    "fields": [],
+                    "scale": {
+                      "type": "quantitative"
+                    }
                   }
                 }
               },
