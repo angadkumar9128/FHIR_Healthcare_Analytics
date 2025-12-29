@@ -10,6 +10,6 @@ SELECT
   END AS risk_level,
   current_date() AS evaluation_date,
   'v1_rule_based' AS model_version
-FROM feature_scores f
-JOIN risk_scores r
-  ON f.patient_id = r.patient_id;
+FROM healthcare.fhir_healthcare_analytics_gold.medication_trends
+JOIN healthcare.fhir_healthcare_analytics_gold.medication_trends
+  ON medication_trends.patient_id = medication_trends.patient_id;
