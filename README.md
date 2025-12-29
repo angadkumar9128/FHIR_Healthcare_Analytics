@@ -257,7 +257,7 @@ This repository represents a **production-aligned healthcare data engineering so
 
 - Enterprise POCs
 - Learning reference
-- Interview discussions
+- Interview ready readme files
 - Healthcare analytics demonstrations
 
 If you find this project useful, consider giving it a ⭐ on GitHub!
