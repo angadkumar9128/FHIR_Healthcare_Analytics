@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/angadkumar9128/FHIR_Healthcare_Analytics)
+
 # 🏥 NextGen Healthcare Analytics using Delta Lake
 
 > **End-to-End Healthcare FHIR Data Engineering & Analytics using Databricks Lakehouse**
