@@ -28,7 +28,7 @@ This repository serves as a **complete reference implementation** for healthcare
 
 ---
 
-## 2. Business Problem Statement
+## 🎯 2. Business Problem Statement
 
 Healthcare data presents multiple challenges:
 
@@ -57,7 +57,7 @@ This project solves these problems by:
 
 ---
 
-## 3. Dataset Description
+## 🗂️ 3. Dataset Description
 
 * **Source**: Synthetic healthcare data generated using **Synthea**
 * **Patients**: 117 synthetic patients
@@ -80,7 +80,7 @@ Each resource represents a **real-world healthcare event**.
 
 ---
 
-## 4. High-Level Architecture
+## 🏗️ 4. High-Level Architecture
 
 ### Databricks Lakehouse Architecture
 
@@ -90,7 +90,7 @@ The solution is built on **Databricks Lakehouse**, combining:
 * Data Warehouse reliability
 * Governance and performance
 
-### Architecture Layers
+### 🧱 Architecture Layers
 
 | Layer  | Purpose                  | Characteristics        |
 | ------ | ------------------------ | ---------------------- |
@@ -271,7 +271,7 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ---
 
-## 6. Unity Catalog & Governance
+## 🏦 6. Unity Catalog & Governance
 
 **Unity Catalog** is used for:
 
@@ -295,7 +295,7 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ---
 
-## 7. Data Flow Summary
+## 🔁 7. Data Flow Summary
 
 1. FHIR JSON files uploaded to storage
 2. Bronze layer ingests raw JSON
@@ -305,7 +305,7 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ---
 
-## 8. Data Engineering Best Practices Used
+## 🛠️ 8. Data Engineering Best Practices Used
 
 * Delta Lake ACID guarantees
 * Schema evolution handling
@@ -317,7 +317,7 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ---
 
-## 9. Technology Stack
+## ⚙️ 9. Technology Stack
 
 | Category      | Technology                |
 | ------------- | ------------------------- |
@@ -331,7 +331,7 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ---
 
-## 10. Analytics & Dashboards
+## 📈 📊 10. Analytics & Dashboards
 
 Dashboards are built using **Databricks SQL** on Gold tables.
 
@@ -357,7 +357,7 @@ Dashboards are built using **Databricks SQL** on Gold tables.
 
 ---
 
-## 11. Data Quality & Reliability
+## 📊 11. Data Quality & Reliability
 
 Implemented using Delta Lake features:
 
@@ -369,7 +369,7 @@ Implemented using Delta Lake features:
 
 ---
 
-## 12. Team & Roles (Project Structure)
+## 🤝 12. Team & Roles (Project Structure)
 
 **Team Name:** Delta Force
 
@@ -391,7 +391,7 @@ Implemented using Delta Lake features:
 
 ---
 
-## 13. Project Outcomes
+## 🚀 13. Project Outcomes
 
 * Successfully processed complex FHIR healthcare data
 * Built scalable healthcare analytics pipeline
