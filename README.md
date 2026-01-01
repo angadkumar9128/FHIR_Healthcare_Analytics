@@ -98,6 +98,184 @@ The solution is built on **Databricks Lakehouse**, combining:
 | Silver | Normalized clinical data | Clean, relational      |
 | Gold   | Business analytics       | Aggregated, optimized  |
 
+## 🏗️ End-to-End Architecture Diagram
+
+![ChatGPT Image Dec 31, 2025, 06_59_20 PM](https://github.com/user-attachments/assets/2802989d-a734-4610-b314-50c3c1f791b2)
+
+---
+
+## 🔄 End-to-End Project Working Flow
+
+This project follows a **modern Databricks Lakehouse architecture** to transform raw FHIR healthcare data into **governed, analytics-ready insights**.
+
+The implementation is divided into **clear, sequential steps**, each using specific platforms and technologies.
+
+---
+
+## 🪜 Step-by-Step Project Execution Flow
+
+---
+
+### 🔹 Step 1: Data Source – FHIR JSON Generation
+
+**What happens**
+- Synthetic healthcare data is generated using **Synthea**
+- Data follows **FHIR standards**
+- One JSON file per patient
+- Each file contains a **FHIR Bundle** with multiple resource types
+
+**FHIR Resources Included**
+- Patient  
+- Encounter  
+- Condition  
+- Observation  
+- Procedure  
+- MedicationRequest  
+- Immunization  
+- DiagnosticReport  
+- Claim / ExplanationOfBenefit  
+
+**Technology Used**
+- Synthea
+- FHIR JSON
+
+---
+
+### 🔹 Step 2: Raw Data Storage (Landing Zone)
+
+**What happens**
+- Raw FHIR JSON files are uploaded to Databricks
+- Stored in **Unity Catalog Volumes**
+- No transformation is applied
+
+**Why this matters**
+- Preserves raw data for audit and reprocessing
+- Acts as the **source of truth**
+
+**Platform / Technology**
+- Databricks Lakehouse
+- Unity Catalog Volume
+- Cloud Object Storage (managed by Databricks)
+
+---
+
+### 🔹 Step 3: Bronze Layer – Raw Ingestion
+
+**What happens**
+- Raw FHIR JSON Bundles are ingested into **Delta tables**
+- One record per patient file
+- Ingestion metadata captured (file name, load time)
+- Schema drift allowed
+
+**Bronze Layer Characteristics**
+- Immutable
+- Auditable
+- Schema-evolving
+
+**Technology Used**
+- Apache Spark
+- PySpark
+- Delta Lake (Bronze)
+- Unity Catalog
+
+---
+
+### 🔹 Step 4: Silver Layer – FHIR Normalization
+
+**What happens**
+- FHIR Bundles are **exploded**
+- Nested JSON structures are flattened
+- One Silver table per FHIR resource
+- References between resources are resolved
+
+**Silver Tables Created**
+- silver_patient  
+- silver_encounter  
+- silver_condition  
+- silver_observation  
+- silver_procedure  
+- silver_medication_request  
+- silver_immunization  
+- silver_diagnostic_report  
+- silver_explanation_of_benefit  
+
+**Data Quality Applied**
+- Datatype normalization
+- Mandatory field checks
+- Reference integrity (Patient ↔ Encounter)
+
+**Technology Used**
+- PySpark
+- Spark SQL
+- Delta Lake (Silver)
+- Unity Catalog
+
+---
+
+### 🔹 Step 5: Gold Layer – Analytics & Business Views
+
+**What happens**
+- Silver tables are aggregated
+- Business-friendly datasets created
+- Optimized for analytics and dashboards
+
+**Gold Datasets**
+- Patient admissions analytics
+- Diagnosis & disease patterns
+- Treatment & medication trends
+- Cost & claims analysis
+- Preventive care & immunization insights
+
+**Technology Used**
+- Spark SQL
+- Delta Lake (Gold)
+- Databricks SQL
+
+---
+
+### 🔹 Step 6: Dashboards & Visualization
+
+**What happens**
+- Interactive dashboards built on Gold layer
+- Near real-time analytics
+- Business and clinical insights generated
+
+**Dashboards Implemented**
+- 🏥 Patient Admissions Dashboard  
+- 🧬 Disease Patterns Dashboard  
+- 💊 Treatment Trends Dashboard  
+- 💰 Cost & Claims Analysis Dashboard  
+- 💉 Preventive Care & Immunization Dashboard  
+
+**Visualization Tools**
+- Databricks SQL Dashboards
+- Power BI (optional external BI)
+
+---
+
+### 🔹 Step 7: Governance, Reliability & Auditing
+
+**What happens**
+- End-to-end data governance applied
+- Full lineage from raw → analytics
+- Schema evolution handled safely
+- Historical versions retained
+
+**Key Capabilities**
+- ACID transactions
+- Time travel & rollback
+- Role-based access control
+- Audit-ready data
+
+**Technology Used**
+- Delta Lake
+- Unity Catalog
+- Databricks Lakehouse
+
+---
+
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/a48cd4c1-8bf6-4311-93e2-f760863ecdf7" />
+
 ---
 
 ## 5. Medallion Architecture Implementation
