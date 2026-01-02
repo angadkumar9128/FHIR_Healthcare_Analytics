@@ -65,6 +65,65 @@ Bronze layer contains:
 - No transformations
 - Schema-on-read
 
+## 📚 Dashboard Team Github files Structure :
+
+---
+```
+.
+├── Dashboard_Team/
+│   ├── Dataset_Understanding/
+│   │   ├── README.md
+│   │
+│   ├── Bronze_Screenshots/
+│   │   ├── bronze_tables.png
+│   │   ├── bronze_schema.png
+│   │
+│   ├── Silver_Screenshots/
+│   │   ├── silver_tables.png
+│   │   ├── silver_schema.png
+│   │
+│   ├── Gold_Screenshots/
+│   │   ├── gold_tables.png
+│   │   ├── gold_views.png
+│   │
+│   ├── Data_quality_report/
+│   │   ├── data_quality_report.sql
+│   │   ├── README.md
+│   │
+│   ├── Governance_Visuals/
+│   │   ├── unity_catalog_overview.png
+│   │   ├── access_controls.png
+│   │
+│   ├── Integrated_Visuals/
+│   │   ├── admissions_dashboard.png
+│   │   ├── diagnosis_dashboard.png
+│   │   ├── treatment_trends_dashboard.png
+│   │
+│   ├── Risk_Notebook_Screenshots/
+│   │   ├── risk_logic_notebook.png
+│   │   ├── risk_output.png
+│   │
+│   ├── Dashboard_SQL/
+│   │   ├── patient_admissions.sql
+│   │   ├── diagnosis_breakdown.sql
+│   │   ├── treatment_trends.sql
+│   │
+│   ├── Feature_Docs/
+│   │   ├── admissions_metrics.md
+│   │   ├── diagnosis_metrics.md
+│   │   ├── treatment_metrics.md
+│   │
+│   ├── PPT_Creation/
+│   │   ├── dashboard_presentation_outline.md
+│   │
+│   ├── Final_Demo/
+│   │   ├── demo_flow.md
+│   │
+│   └── README.md
+
+```
+---
+
 **Captured Screens**
 - Raw JSON view
 - Auto-inferred schema
