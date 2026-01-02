@@ -378,78 +378,91 @@ Provide **business-ready datasets** for dashboards and decision-making.
 
 ## 📂 Repository Structure
 
+```
 .
-├── data/
-
-│   └── raw_fhir/                             # Raw FHIR JSON files (sample / reference)
-
+├── Dashboard_Sql_Code_Files/
 │
-
-├── bronze/
-
-│   └── bronze_ingestion.py                     # Raw FHIR ingestion logic
-
+├── Dashboard_Team/
+│   ├── Bronze_Screenshots/
+│   ├── Silver_Screenshots/
+│   ├── Gold_Screenshots/
+│   ├── Governance_Visuals/
+│   ├── Integrated_Visuals/
+│   ├── Risk_Notebook_Screenshots/
+│   ├── README.md
 │
-
-├── silver/
-
-│   ├── patient.py                            # Patient resource transformation
-
-│   ├── encounter.py                          # Encounter normalization
-
-│   ├── condition.py                           # Diagnosis (Condition) processing
-
-│   ├── observation.py                         # Clinical observations & labs
-
-│   ├── procedure.py                         # Medical procedures
-
-│   ├── medication_request.py                    # Prescribed medications
-
-│   ├── immunization.py                    # Immunization records
-
-│   ├── diagnostic_report.py                 # Diagnostic reports
-
-│   └── explanation_of_benefit.py            # Insurance & billing data
-
+├── FHIR_Healthcare_Analytics_Dashboards/
+│   ├── Databricks_SQL_Dashboards/
+│   ├── Dashboard_Metrics/
 │
-
-├── gold/
-
-│   ├── patient_encounter_summary.sql  # Core analytics dataset
-
-│   ├── admissions_dashboard.sql       # Patient admissions analytics
-
-│   ├── disease_patterns.sql           # Diagnosis & disease trends
-
-│   ├── treatment_trends.sql           # Treatment & medication trends
-
-│   ├── cost_analysis.sql              # Financial & claim analysis
-
-│   └── preventive_care.sql            # Immunization & preventive care
-
+├── FHIR-Medallion_Architecture_Notebook_Files/
 │
-
-├── dashboards/
-
-│   ├── databricks_sql/              # Databricks SQL dashboard definitions
-
-│   └── power_bi/                    # Power BI reports & visuals
-
+├── FHIR_Analytics_Dashboard_Raw_Databricks_&_PowerBI_Files/
 │
-
-├── docs/
-
-│   ├── architecture_diagram.png     # System architecture diagram
-
-│   └── project_documentation.pdf    # Complete project documentation
-
+├── Final_Submission_Outcomes_Files/
 │
-
-├── .gitignore
-
+├── Project_Screenshot_Files/
+│
+├── Ingestion_Team/
+│   ├── Bronze_Ingestion/
+│   ├── JSON_Flattening/
+│   ├── Gold_Ingestion/
+│   ├── Governance_Demo/
+│   ├── Performance_Support/
+│   ├── README.md
+│
+├── Transformation_Team/
+│   ├── Support_Bronze/
+│   ├── Flatten_JSON/
+│   ├── Clean_Silver/
+│   ├── Feature_Creation/
+│   ├── Gold_Tables/
+│   ├── Risk_Logic_Support/
+│   ├── Integrated_Gold/
+│   ├── Time_Travel_Demos/
+│   ├── SQL_View_Creation/
+│   ├── Performance_Tuning/
+│   ├── Documentation/
+│   ├── Data_Flow_PPT/
+│   ├── Final_Review/
+│   ├── README.md
+│
+├── ML_Analytics_Team/
+│   ├── Healthcare_Analytics_Setup/
+│   ├── Metric_Definition/
+│   ├── Logic_Design/
+│   ├── Validation_Rules/
+│   ├── Feature_Scoring/
+│   ├── Rule_Tuning/
+│   ├── Gold_Integration/
+│   ├── Risk_Logic_Build/
+│   ├── Model_Outputs/
+│   ├── Integrated_Analytics/
+│   ├── Dashboard_Metrics/
+│   ├── Tuning_Logic/
+│   ├── ML_Documentation/
+│   ├── Demo_Prep/
+│   ├── QA_Prep/
+│   ├── README.md
+│
+├── fhir_healthcare_analytics_rawdataset/
+│
+├── unity_catalog_metadata/
+├── Unity_Catalog_Metadata_Files/
+│
+├── FHIR_Healthcare_Analytics_BronzeLayer.ipynb
+├── FHIR_Healthcare_Analytics_SilverLayer.ipynb
+├── FHIR_Healthcare_Analytics_GoldLayer.ipynb
+├── Unity_Catalog_Metadata_Export_Code.ipynb
+├── Project_Deliverable_Dashboard_Code.ipynb
+├── Unity_catalog_Schema_Structures.csv
+├── Explanation_Of_FHIR_DataSets.md
+│
 ├── README.md
+├── LICENSE
+└── .gitignore
 
-└── LICENSE
+```
 
 ---
 
