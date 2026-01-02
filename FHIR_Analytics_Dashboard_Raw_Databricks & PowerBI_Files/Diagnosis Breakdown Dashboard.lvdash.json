@@ -1,0 +1,460 @@
+{
+  "datasets": [
+    {
+      "name": "e12dfbc0",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    diagnosis_name,\n",
+        "    COUNT(*) AS diagnosis_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis\n",
+        "GROUP BY diagnosis_name\n",
+        "ORDER BY diagnosis_count DESC;\n"
+      ]
+    },
+    {
+      "name": "cdc98797",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    d.diagnosis_category,\n",
+        "    COUNT(*) AS diagnosis_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis f\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON f.diagnosis_key = d.diagnosis_key\n",
+        "GROUP BY d.diagnosis_category;\n"
+      ]
+    },
+    {
+      "name": "914f32a6",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    CASE\n",
+        "        WHEN LOWER(d.diagnosis_name) LIKE '%diabetes%'\n",
+        "          OR LOWER(d.diagnosis_name) LIKE '%hypertension%'\n",
+        "          OR LOWER(d.diagnosis_name) LIKE '%renal%'\n",
+        "          OR LOWER(d.diagnosis_name) LIKE '%asthma%'\n",
+        "        THEN 'Chronic'\n",
+        "        ELSE 'Acute'\n",
+        "    END AS condition_type,\n",
+        "    COUNT(*) AS diagnosis_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis f\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON f.diagnosis_key = d.diagnosis_key\n",
+        "GROUP BY condition_type;\n"
+      ]
+    },
+    {
+      "name": "ea00fe63",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    d.diagnosis_name,\n",
+        "    YEAR(a.admit_time)  AS year,\n",
+        "    MONTH(a.admit_time) AS month,\n",
+        "    COUNT(*) AS diagnosis_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis f\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON f.diagnosis_key = d.diagnosis_key\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.fact_admissions a\n",
+        "  ON f.encounter_id = a.encounter_id\n",
+        "GROUP BY d.diagnosis_name, YEAR(a.admit_time), MONTH(a.admit_time)\n",
+        "ORDER BY d.diagnosis_name, year, month;\n"
+      ]
+    },
+    {
+      "name": "2d25287c",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    CASE\n",
+        "        WHEN risk_score >= 70 THEN 'High'\n",
+        "        WHEN risk_score >= 40 THEN 'Medium'\n",
+        "        ELSE 'Low'\n",
+        "    END AS risk_bucket,\n",
+        "    COUNT(*) AS patient_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_patient_risk\n",
+        "GROUP BY risk_bucket;\n"
+      ]
+    },
+    {
+      "name": "70b5b170",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    patient_id,\n",
+        "    encounter_count,\n",
+        "    diagnosis_count,\n",
+        "    total_cost,\n",
+        "    risk_score\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_patient_risk\n",
+        "ORDER BY risk_score DESC\n",
+        "LIMIT 10;\n"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "d0480eeb",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "0546af14",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e12dfbc0",
+                  "fields": [
+                    {
+                      "name": "diagnosis_name",
+                      "expression": "`diagnosis_name`"
+                    },
+                    {
+                      "name": "sum(diagnosis_count)",
+                      "expression": "SUM(`diagnosis_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "diagnosis_name",
+                  "axis": {
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(diagnosis_count)",
+                  "displayName": "Diagnosis Count (Frequency)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Diagnosis Count by Name",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "018c41bf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cdc98797",
+                  "fields": [
+                    {
+                      "name": "sum(diagnosis_count)",
+                      "expression": "SUM(`diagnosis_count`)"
+                    },
+                    {
+                      "name": "diagnosis_category",
+                      "expression": "`diagnosis_category`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(diagnosis_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Diagnosis Count by Category"
+                },
+                "color": {
+                  "fieldName": "diagnosis_category",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Infectious",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 5
+                        }
+                      },
+                      {
+                        "value": "Other",
+                        "color": "#CEEC07"
+                      },
+                      {
+                        "value": "Metabolic",
+                        "color": "#230EF4"
+                      },
+                      {
+                        "value": "Cardiovascular",
+                        "color": "#FF0000"
+                      },
+                      {
+                        "value": "Renal",
+                        "color": {
+                          "themeColorType": "fontColor"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "Diagnosis Distribution By Catagoty",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "02f6b2c0",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "914f32a6",
+                  "fields": [
+                    {
+                      "name": "sum(diagnosis_count)",
+                      "expression": "SUM(`diagnosis_count`)"
+                    },
+                    {
+                      "name": "condition_type",
+                      "expression": "`condition_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(diagnosis_count)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "CHRONIC vs ACUTE ANALYSIS"
+                },
+                "color": {
+                  "fieldName": "condition_type",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Chronic",
+                        "color": "#DDFF00"
+                      },
+                      {
+                        "value": "Acute",
+                        "color": "#0A09DD"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "Simple Chronic vs Acute Classification",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "1937d15f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ea00fe63",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "sum(diagnosis_count)",
+                      "expression": "SUM(`diagnosis_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(diagnosis_count)",
+                  "displayName": "DIAGNOSIS TREND OVER TIME",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Diagnosis Trend (Yearly)",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "040124b6",
+            "queries": [
+              {
+                "name": "55f1fc496185405da3a6f994978037da",
+                "query": {
+                  "datasetName": "2d25287c",
+                  "fields": [
+                    {
+                      "name": "risk_bucket",
+                      "expression": "`risk_bucket`"
+                    },
+                    {
+                      "name": "column_40be0d8b573",
+                      "expression": "SUM(`patient_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Risk Score Distribution Graph",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"risk_bucket\",\"id\":\"column_40be0d8b572\"},\"y\":[{\"column\":\"patient_count\",\"id\":\"column_40be0d8b573\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_40be0d8b573\":{\"name\":\"Patient Count by Risk Factor\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "55f1fc496185405da3a6f994978037da"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bff6b501",
+            "queries": [
+              {
+                "name": "0d7fa9cf18e9494cb77b141a7be9e478",
+                "query": {
+                  "datasetName": "70b5b170",
+                  "fields": [
+                    {
+                      "name": "patient_id",
+                      "expression": "`patient_id`"
+                    },
+                    {
+                      "name": "column_dc0c07c9302",
+                      "expression": "SUM(`total_cost`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Sum of total Cost by Patient During Diagnosis",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"patient_id\",\"id\":\"column_dc0c07c9304\"},\"y\":[{\"column\":\"total_cost\",\"id\":\"column_dc0c07c9302\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"area\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_dc0c07c9302\":{\"color\":null,\"name\":\"Sum of total Cost by Patient\",\"type\":\"area\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":false},\"type\":\"-\"}}",
+                "query_name": "0d7fa9cf18e9494cb77b141a7be9e478"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}

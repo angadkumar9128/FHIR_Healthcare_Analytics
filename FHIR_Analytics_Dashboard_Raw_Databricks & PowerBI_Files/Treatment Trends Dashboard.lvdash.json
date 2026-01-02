@@ -1,0 +1,628 @@
+{
+  "datasets": [
+    {
+      "name": "115cfba3",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    procedure_name,\n",
+        "    COUNT(*) AS procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_silver.procedure\n",
+        "GROUP BY procedure_name\n",
+        "ORDER BY procedure_count DESC\n",
+        "LIMIT 10;\n"
+      ]
+    },
+    {
+      "name": "e33f4416",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    procedure_name,\n",
+        "    COUNT(*) AS procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_silver.procedure\n",
+        "GROUP BY procedure_name\n",
+        "ORDER BY procedure_count DESC\n",
+        "LIMIT 10;\n"
+      ]
+    },
+    {
+      "name": "b315d607",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    YEAR(performed_time)  AS year,\n",
+        "    MONTH(performed_time) AS month,\n",
+        "    COUNT(*) AS procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_silver.procedure\n",
+        "WHERE performed_time IS NOT NULL\n",
+        "GROUP BY YEAR(performed_time), MONTH(performed_time)\n",
+        "ORDER BY year, month;\n"
+      ]
+    },
+    {
+      "name": "a92358f3",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    YEAR(prescribed_date)  AS year,\n",
+        "    MONTH(prescribed_date) AS month,\n",
+        "    COUNT(*) AS medication_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_silver.medication_request\n",
+        "WHERE prescribed_date IS NOT NULL\n",
+        "GROUP BY YEAR(prescribed_date), MONTH(prescribed_date)\n",
+        "ORDER BY year, month;\n"
+      ]
+    },
+    {
+      "name": "a5da3293",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    d.diagnosis_name,\n",
+        "    pr.procedure_name,\n",
+        "    COUNT(*) AS procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis fad\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON fad.diagnosis_key = d.diagnosis_key\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_silver.procedure pr\n",
+        "  ON fad.encounter_id = pr.encounter_id\n",
+        "GROUP BY d.diagnosis_name, pr.procedure_name\n",
+        "ORDER BY procedure_count DESC;\n"
+      ]
+    },
+    {
+      "name": "7aba53a4",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    d.diagnosis_name,\n",
+        "    pr.procedure_name,\n",
+        "    COUNT(*) AS procedure_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis fad\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON fad.diagnosis_key = d.diagnosis_key\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_silver.procedure pr\n",
+        "  ON fad.encounter_id = pr.encounter_id\n",
+        "GROUP BY d.diagnosis_name, pr.procedure_name\n",
+        "ORDER BY procedure_count DESC;\n"
+      ]
+    },
+    {
+      "name": "abadd07b",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "    d.diagnosis_name,\n",
+        "    mr.medication_name,\n",
+        "    COUNT(*) AS medication_count\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_gold.fact_admission_diagnosis fad\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_gold.dim_diagnosis d\n",
+        "  ON fad.diagnosis_key = d.diagnosis_key\n",
+        "JOIN angad_kumar91.fhir_healthcare_analytics_silver.medication_request mr\n",
+        "  ON fad.encounter_id = mr.encounter_id\n",
+        "GROUP BY d.diagnosis_name, mr.medication_name\n",
+        "ORDER BY medication_count DESC;\n"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "a10f433b",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "8fe633e7",
+            "queries": [
+              {
+                "name": "0236ac6b854c4710ae488de20d58dee0",
+                "query": {
+                  "datasetName": "115cfba3",
+                  "fields": [
+                    {
+                      "name": "procedure_name",
+                      "expression": "`procedure_name`"
+                    },
+                    {
+                      "name": "column_40be0d8b864",
+                      "expression": "SUM(`procedure_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Most Common Procedures",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"procedure_name\",\"id\":\"column_40be0d8b863\"},\"y\":[{\"column\":\"procedure_count\",\"id\":\"column_40be0d8b864\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_40be0d8b864\":{\"color\":\"#00008B\",\"name\":\"Procedure Count by Procedure Name\",\"type\":\"column\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":false},\"type\":\"-\"}}",
+                "query_name": "0236ac6b854c4710ae488de20d58dee0"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "b06f2a9f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b315d607",
+                  "fields": [
+                    {
+                      "name": "year",
+                      "expression": "`year`"
+                    },
+                    {
+                      "name": "sum(procedure_count)",
+                      "expression": "SUM(`procedure_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(procedure_count)",
+                  "displayName": "Procedures Over Time ( Yearly )",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Treatment Trends over Time (Monthly)",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  "#1E450D",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "46d2fae9",
+            "queries": [
+              {
+                "name": "299becce66ff469bb327fac7dfea016e",
+                "query": {
+                  "datasetName": "a92358f3",
+                  "fields": [
+                    {
+                      "name": "month",
+                      "expression": "`month`"
+                    },
+                    {
+                      "name": "column_40be0d8b888",
+                      "expression": "SUM(`medication_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Percentage of Medications Over Time (Monthly)",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"month\",\"id\":\"column_40be0d8b895\"},\"y\":[{\"column\":\"medication_count\",\"id\":\"column_40be0d8b888\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_40be0d8b888\":{\"name\":\"Medications Over Time (Monthly)\",\"type\":\"pie\",\"yAxis\":0},\"column_40be0d8b891\":{\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
+                "query_name": "299becce66ff469bb327fac7dfea016e"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "03c7b4b4",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a5da3293",
+                  "fields": [
+                    {
+                      "name": "diagnosis_name",
+                      "expression": "`diagnosis_name`"
+                    },
+                    {
+                      "name": "sum(procedure_count)",
+                      "expression": "SUM(`procedure_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "diagnosis_name",
+                  "axis": {
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(procedure_count)",
+                        "displayName": "Procedure Count for a Specific Diagnosis"
+                      }
+                    ],
+                    "scale": {
+                      "type": "quantitative"
+                    },
+                    "axis": {
+                      "hideTitle": false,
+                      "hideLabels": false
+                    }
+                  },
+                  "secondary": {
+                    "fields": [],
+                    "scale": {
+                      "type": "quantitative"
+                    }
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "hide": true
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "title": "Number of Procedure done for a Specific Diagnosis",
+                "showTitle": true,
+                "showDescription": false
+              },
+              "mark": {
+                "colors": [
+                  "#2503F8",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "layout": "stack"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "861d8cac",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "abadd07b",
+                  "fields": [
+                    {
+                      "name": "diagnosis_name",
+                      "expression": "`diagnosis_name`"
+                    },
+                    {
+                      "name": "sum(medication_count)",
+                      "expression": "SUM(`medication_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "diagnosis_name",
+                  "axis": {
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(medication_count)",
+                  "displayName": "Medication Usage by Diagnosis Name",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Amount of Medicine Used for a Particular Diagnosis",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  "#000005",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "layout": "layer"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "2448bc01",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "abadd07b",
+                  "fields": [
+                    {
+                      "name": "medication_name",
+                      "expression": "`medication_name`"
+                    },
+                    {
+                      "name": "sum(medication_count)",
+                      "expression": "SUM(`medication_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "medication_name",
+                  "axis": {
+                    "hideLabels": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(medication_count)"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "fields": []
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "legend": {
+                    "hide": true
+                  }
+                }
+              },
+              "frame": {
+                "title": "Sum of Medication Usage",
+                "showTitle": true
+              },
+              "mark": {
+                "layout": "group",
+                "colors": [
+                  "#3400FF",
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 6,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
