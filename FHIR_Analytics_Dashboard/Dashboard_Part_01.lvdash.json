@@ -1,0 +1,70 @@
+{
+  "datasets": [
+    {
+      "name": "d8e29a54",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "SELECT\n",
+        "  entry.resource.resourceType,\n",
+        "  COUNT(*) AS cnt\n",
+        "FROM angad_kumar91.fhir_healthcare_analytics_bronze.fhir_entry_view\n",
+        "GROUP BY entry.resource.resourceType\n",
+        "ORDER BY cnt DESC;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "6a468c8c",
+      "displayName": "Untitled Page",
+      "layout": [
+        {
+          "widget": {
+            "name": "a46c5e8e",
+            "queries": [
+              {
+                "name": "52d4164753b447a5b1822f1ef9fb88be",
+                "query": {
+                  "datasetName": "d8e29a54",
+                  "fields": [
+                    {
+                      "name": "resourceType",
+                      "expression": "`resourceType`"
+                    },
+                    {
+                      "name": "column_6644c7e7292",
+                      "expression": "SUM(`cnt`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 0,
+              "viz_spec": {
+                "display_name": "Visualization 1",
+                "viz_type": "CHART",
+                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"resourceType\",\"id\":\"column_6644c7e7291\"},\"y\":[{\"column\":\"cnt\",\"id\":\"column_6644c7e7292\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_6644c7e7292\":{\"name\":\"cnt\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":false},\"type\":\"-\"}}",
+                "query_name": "52d4164753b447a5b1822f1ef9fb88be"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 7
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
