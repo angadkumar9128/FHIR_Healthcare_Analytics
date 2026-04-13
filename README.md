@@ -13,6 +13,8 @@
 **FHIR Healthcare Analytics** is an enterprise-grade **end-to-end healthcare data engineering platform** built using the **Databricks Lakehouse architecture**.
 The project demonstrates how **complex, semi-structured FHIR JSON healthcare data** can be ingested, governed, transformed, and analyzed efficiently using **modern data engineering best practices**.
 
+> Note : Fast Healthcare Interoperability Resources (FHIR) data is a modern HL7 standard for electronically exchanging healthcare information, using RESTful APIs, JSON, or XML to enable seamless sharing between disparate EHR systems. It breaks down complex medical records into small, standardized, and reusable components called "resources" (e.g., patient, observation, medication), facilitating real-time data access for clinicians, mobile apps, and research
+
 The system transforms **raw FHIR JSON bundles** into **analytics-ready datasets** through a **Medallion Architecture (Bronze → Silver → Gold)** and enables interactive dashboards, reporting, and downstream analytics use cases.
 
 The project follows **modern data engineering best practices**, including:
