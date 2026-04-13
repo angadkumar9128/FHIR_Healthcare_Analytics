@@ -577,7 +577,7 @@ Implemented using Delta Lake features:
 | ML Analytics Team   | Advanced analytics   |
 | Governance Team     | Unity Catalog        |
 
-**Your Role (Angad Kumar)**
+**My Role (Angad Kumar)**
 
 * Silver & Gold layer development
 * Data modeling
@@ -606,7 +606,7 @@ Synthetic healthcare data is used to ensure privacy and compliance.
 
 ## ⭐ Final Note
 
-This repository represents a **production-aligned healthcare data engineering solution** built using modern Lakehouse principles. It is suitable for:
+This repository represents a **production-aligned healthcare data engineering solution** built using modern Lakehouse principles. It is used for:
 
 - Enterprise POCs
 - Learning reference
