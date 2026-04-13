@@ -10,8 +10,6 @@
 
 ## 📌 1. Project Overview
 
-**NextGen Healthcare Analytics using Delta Lake** is an enterprise-grade **Proof of Concept (POC)** that demonstrates how complex **FHIR (Fast Healthcare Interoperability Resources)** JSON data can be ingested, governed, transformed, and analyzed using the **Databricks Lakehouse architecture**.
-
 **FHIR Healthcare Analytics** is an enterprise-grade **end-to-end healthcare data engineering platform** built using the **Databricks Lakehouse architecture**.
 The project demonstrates how **complex, semi-structured FHIR JSON healthcare data** can be ingested, governed, transformed, and analyzed efficiently using **modern data engineering best practices**.
 
